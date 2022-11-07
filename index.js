@@ -32,8 +32,35 @@ const tweets = [
     {
         username: "bobesponja",
         tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
+    },
+    {
+        username: "bobesponja",
+        tweet: "eu amo o hub"
     }
-
 ]
 
 app.post("/sign-up", (req, res) => {
@@ -47,7 +74,7 @@ app.post("/sign-up", (req, res) => {
 })
 
 app.get("/sign-up", (req, res) => {
-    res.send(user)
+    res.send(user);
 })
 
 app.post("/tweets", (req, res) => {
@@ -57,7 +84,7 @@ app.post("/tweets", (req, res) => {
         tweet
     }
     tweets.push(newTweet)
-    res.status(200).send("Ok");
+    res.status(201).send("Ok");
 })
 
 app.get("/tweets", (req, res) => {
@@ -77,7 +104,17 @@ app.get("/tweets", (req, res) => {
                 tweet: obj.tweet
             }
         })
-    res.send(postedTweets)
+    const listOfTweets = postedTweets.slice(0, 10);
+    res.send(listOfTweets);
+})
+
+app.get("/tweets/:username", (req, res) => {
+    const { username } = req.params;
+    const userTweets = tweets.filter((obj) => {
+        return obj.username === username;
+    });
+    const userPostedTweets = userTweets.slice(0).reverse();
+    res.send(userPostedTweets);
 })
 
 app.listen(5000, () => console.log("App running in port: 5000"))
